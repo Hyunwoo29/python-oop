@@ -1,6 +1,3 @@
-def bmi_function(weight, tall):
-    return weight / tall ** 2 * 10000
-
 class Bmi(object):
     def __init__(self, weight, tall):
         self.weight = weight
@@ -8,14 +5,14 @@ class Bmi(object):
 
     def get_bmi(self):
         return self.weight / self.tall ** 2 * 10000
-"""
-고도 비만 : 35 이상
-중(重)도 비만 (2단계 비만) : 30 - 34.9
-경도 비만 (1단계 비만) : 25 - 29.9
-과체중 : 23 - 24.9
-정상 : 18.5 - 22.9
-저체중 : 18.5 미만
-"""
+    """
+    고도 비만 : 35 이상
+    중(重)도 비만 (2단계 비만) : 30 - 34.9
+    경도 비만 (1단계 비만) : 25 - 29.9
+    과체중 : 23 - 24.9
+    정상 : 18.5 - 22.9
+    저체중 : 18.5 미만
+    """
     def get_bmigrade(self):
         bmi = ''
         index = self.weight / self.tall ** 2 * 10000
@@ -27,7 +24,7 @@ class Bmi(object):
             bmi = '경도 비만'
         elif index >= 23:
             bmi = '과체중'
-        elif index >= 18.5 and index <= 22.9:
+        elif index >= 18.5:
             bmi = '정상'
         else:
             bmi = '저체중'
