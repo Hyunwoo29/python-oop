@@ -36,8 +36,7 @@ class Stock(object):
                 ls.append(stock)
 
             elif result == 4:
-                stock = Stock(None, input('종목코드:'))
-                stock.del_element(ls)
+                Stock.del_element(ls, input('삭제할 코드:'))
 
 
             elif result == 0:
