@@ -1,15 +1,20 @@
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
-
-
 class BugsMusic(object):
     url = ''
 
     def __str__(self):
         return self.url
 
-    """https://music.bugs.co.kr/chart/track/realtime/total?wl_ref=M_contents_03_01"""
+    @staticmethod
+    def ranking(element, soup):
+        count = 0
+        for i in soup.find_all(name='p', attrs=({"class": element})):
+            count += 1
+            print(f'순위: {str(count)}')
+            print(f'{element}: {i.find("a").text}')
 
+    """https://music.bugs.co.kr/chart/track/realtime/total?wl_ref=M_contents_03_01"""
     @staticmethod
     def main():
         bugs = BugsMusic()
@@ -21,16 +26,11 @@ class BugsMusic(object):
                 bugs.url = input('Input URL')
             elif menu == 2:
                 print(f'Input URL is {bugs}')
-                soup = BeautifulSoup(urlopen(bugs.url), 'html.parser')
+                soup = BeautifulSoup(urlopen(bugs.url),'lxml')
 
                 print('--------------- ARTIST RANKING-----------------')
-                count = 0
-                artist = soup.find_all(name='p', attrs={'class': 'artist'})
-                title = soup.find_all(name='p', attrs={'class': 'title'})
-                for i in range(100):
-                    count += 1
-                    print(f'str{(count)} RANKING')
-                    print(f'ARTIST: {artist[i].find("a").text} title: {title[i].find("a").text}')
+                BugsMusic.ranking('artist', soup)
+                BugsMusic.ranking('title', soup)
 
 
             elif menu == 3:
@@ -38,6 +38,4 @@ class BugsMusic(object):
             else:
                 print("wrong number")
                 continue
-
-
 BugsMusic.main()
